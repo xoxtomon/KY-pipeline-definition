@@ -1,0 +1,14 @@
+# .github/workflows/orchestrator.yml
+name: Orchestrator
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  call-build-test:
+    uses: ./.github/workflows/build-test.yml
+
+  call-deploy:
+    uses: ./.github/workflows/deploy.yml
+    needs: call-build-test  # <-- ensures it waits for the build-test
