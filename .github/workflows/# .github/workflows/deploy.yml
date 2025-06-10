@@ -1,0 +1,12 @@
+# .github/workflows/deploy.yml
+name: Deploy
+
+on:
+  workflow_call: # <-- also makes it callable
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo deploy
+        run: echo "deploy workflow"
