@@ -1,0 +1,11 @@
+name: Build and Test
+
+on:
+  workflow_call: # <-- makes it callable
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo build and test
+        run: echo "build and test workflow"
