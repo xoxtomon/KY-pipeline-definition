@@ -7,5 +7,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Echo build and test
-        run: echo "build and test workflow"
+      - name: BUILD
+        run: echo "build"
+      
+      - name: TEST
+        run: echo "test"
+        

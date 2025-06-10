@@ -8,5 +8,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Echo deploy
-        run: echo "deploy workflow"
+      - name: DEPLOY ASSET
+        run: echo "deploy asset"
+      
+      - name: DEPLOY JAR
+        run: echo "deploy jar"
