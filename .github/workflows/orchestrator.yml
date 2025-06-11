@@ -8,8 +8,6 @@ on:
         description: 'Branch name to resolve environment'
         required: true
         type: string
-  workflow_dispatch:  # Allows manual triggering
-
 jobs:
   orchestrate:
     runs-on: ubuntu-latest
