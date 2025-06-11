@@ -2,25 +2,25 @@
 name: Orchestrator Workflow
 
 on:
-  push:
-    branches: 
-      - main
-      - feature/**
-      - qa
-  pull_request:
-    branches: [ main ]
+  workflow_call:
+  inputs:
+      branch_name:
+        description: 'BRanch name to resolve environment'
+        required: true
+        type: string
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
   orchestrate:
     runs-on: ubuntu-latest
+    branch_name: ${{ inputs.branch_name }}
     outputs:
       environment: ${{ steps.set-env.outputs.environment }}
     steps:
       - name: Set Environment Based on Branch
         id: set-env
         run: |
-          BRANCH_NAME="${{ github.ref_name }}"
+          BRANCH_NAME="${{ inputs.branch_name }}"
           echo "Branch name: $BRANCH_NAME"
           
           if [[ $BRANCH_NAME == feature* ]]; then
