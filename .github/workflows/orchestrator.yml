@@ -2,10 +2,10 @@
 name: Orchestrator Workflow
 
 on:
-  workflow_call:
+  workflow_call:     # Can be executed by other workflows
     inputs:
-      branch_name:
-        description: 'BRanch name to resolve environment'
+      branch_name:   # Variable to get original branch invokation
+        description: 'Branch name to resolve environment'
         required: true
         type: string
   workflow_dispatch:  # Allows manual triggering
@@ -28,11 +28,6 @@ jobs:
             main) echo "environment=prod" >> "$GITHUB_OUTPUT" ;;
             *) echo "environment=dev" >> "$GITHUB_OUTPUT" ;;  # fallback
           esac
-
-      - name: Log orchestrator start
-        run: |
-          echo "🎯 Orchestrator workflow started"
-          echo "Triggering build workflow..."
           
   call-build:
     needs: orchestrate
@@ -45,4 +40,12 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with:
       environment: ${{ needs.orchestrate.outputs.environment }}
+
+  trigger-pipelines:
+    needs: [orchestrate, call-build, call-deploy]
+    if: $GITHUB_REPOSITORY != "xoxtomon/KY-pipeline-usage"  # Denotes stop condition on workflows triggered by commons
+    steps:
+      - name: TEST invokation
+        run: |
+          echo "Executed from other repo"
 
