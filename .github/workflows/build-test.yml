@@ -3,14 +3,33 @@ name: Build And Test Workflow
 
 on:
   workflow_call:  # Allows this workflow to be called by other workflows
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        type: string
   workflow_dispatch:  # Allows manual triggering
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
   
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
     steps:
       - name: First Bash Step
-        run: echo "First step executed"
+        run: |
+          echo "First step executed"
+          echo "Environment: ${{ inputs.environment }}"
           
       - name: Second Bash Step
-        run: echo "Second step executed"
+        run: |
+          echo "Second step executed"
+          echo "Deploying to: ${{ inputs.environment }}"
