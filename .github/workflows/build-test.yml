@@ -24,13 +24,20 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     steps:
-      - name: First Bash Step
+      - name: Global Variable Step
         run: |
           echo "First step executed"
           echo "Environment: ${{ inputs.environment }}"
+          echo "GLOBAL Variable: ${{ vars.ENVIRONMENT_NAME }}"
           
-      - name: Second Bash Step
+      - name:  Specific Variable Step
         run: |
           echo "Second step executed"
           echo "Deploying to: ${{ inputs.environment }}"
-          echo "Environment Name Variable: ${{ vars.ENVIRONMENT_NAME }}"
+          echo "SPECIFIC Repo Variable: ${{ vars.APP_NAME }}"
+      
+      - name:  Built-in Variable Step
+        run: |
+          echo "Third step executed"
+          echo "Deploying to: ${{ inputs.environment }}"
+          echo "BUILT-IN Repo Variable: ${{ vars.GITHUB_RUN_ID }}"
