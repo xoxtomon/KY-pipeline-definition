@@ -48,7 +48,7 @@ jobs:
       environment: ${{ needs.orchestrate.outputs.environment }}
   
   call-deploy:
-    needs: call-build
+    needs: [orchestrate, call-build]
     uses: ./.github/workflows/deploy.yml
     with:
       environment: ${{ needs.orchestrate.outputs.environment }}

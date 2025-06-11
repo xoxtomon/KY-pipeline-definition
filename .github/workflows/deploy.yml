@@ -6,17 +6,26 @@ on:
       environment:
         required: true
         type: string
+  workflow_dispatch:  # Allows manual triggering
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
 
 jobs:
   deploy:
-    name: "deploy: release"
+    name: deploy release
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     steps:
-      - name: Deploy QA
-        if: ${{ inputs.environment == 'dev' || inputs.environment == 'staging' }}
-        run: echo "Deploying to ${{ inputs.environment }} ENV"
-
-      - name: Deploy PROD
-        if: ${{ inputs.environment == 'prod' }}
-        run: echo "Deploying to Production"
+      - name: Deploy STAGING Step
+        if:  ${{ inputs.environment == 'staging' || inputs.environment == 'dev' }}
+        run: echo "Deploying to environment ${{ inputs.environment }}"
+      - name: Deploy PROD Step
+        if:  ${{ inputs.environment == 'prod'}}
+        run: echo "Deploying to environment ${{ inputs.environment }}"
