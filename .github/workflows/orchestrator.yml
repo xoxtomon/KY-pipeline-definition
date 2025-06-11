@@ -21,19 +21,13 @@ jobs:
         run: |
           BRANCH_NAME="${{ inputs.branch_name }}"
           echo "Branch name: $BRANCH_NAME"
-          
-          if [[ $BRANCH_NAME == feature* ]]; then
-            ENVIRONMENT="dev"
-          elif [[ $BRANCH_NAME == qa* ]]; then
-            ENVIRONMENT="staging"
-          elif [[ $BRANCH_NAME == "main" ]]; then
-            ENVIRONMENT="prod"
-          else
-            ENVIRONMENT="dev"  # default fallback
-          fi
-          
-          echo "Resolved environment: $ENVIRONMENT"
-          echo "environment=$ENVIRONMENT" >> $GITHUB_OUTPUT
+
+          case "$BRANCH_NAME" in
+            feature*) echo "environment=dev" >> "$GITHUB_OUTPUT" ;;
+            qa*) echo "environment=staging" >> "$GITHUB_OUTPUT" ;;
+            main) echo "environment=prod" >> "$GITHUB_OUTPUT" ;;
+            *) echo "environment=dev" >> "$GITHUB_OUTPUT" ;;  # fallback
+          esac
 
       - name: Log orchestrator start
         run: |
