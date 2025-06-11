@@ -42,7 +42,6 @@ jobs:
       environment: ${{ needs.orchestrate.outputs.environment }}
 
   trigger-pipelines:
-    runs-on: ubuntu-latest
     needs: [orchestrate, call-build, call-deploy]
     uses: ./.github/workflows/rebuild.yml
     with:
