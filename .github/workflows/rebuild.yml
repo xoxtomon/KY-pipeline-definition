@@ -8,7 +8,6 @@ on:
         description: 'Target environment'
         required: true
         type: string
-    secrets: inherit
   workflow_dispatch:  # Allows manual triggering
     inputs:
       environment:
@@ -19,7 +18,6 @@ on:
           - dev
           - staging
           - prod
-    secrets: inherit
   
 jobs:
   build:

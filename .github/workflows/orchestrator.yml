@@ -28,6 +28,8 @@ jobs:
             main) echo "environment=prod" >> "$GITHUB_OUTPUT" ;;
             *) echo "environment=dev" >> "$GITHUB_OUTPUT" ;;  # fallback
           esac
+      - name: Test
+        run: echo "TOKEN LENGTH=${{ secrets.REPO_DISPATCH_TOKEN != '' && 'set' || 'missing' }}"
           
   call-build:
     needs: orchestrate
@@ -46,5 +48,4 @@ jobs:
     uses: ./.github/workflows/rebuild.yml
     with:
       environment: ${{ needs.orchestrate.outputs.environment }}
-    secrets:
-      REPO_DISPATCH_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
+    secrets: inherit
