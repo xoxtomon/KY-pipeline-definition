@@ -46,4 +46,4 @@ jobs:
     uses: ./.github/workflows/rebuild.yml
     with:
       environment: ${{ needs.orchestrate.outputs.environment }}
-    secrets: inherit
+      REPO_DISPATCH_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
