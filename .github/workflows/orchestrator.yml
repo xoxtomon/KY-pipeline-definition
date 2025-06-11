@@ -46,4 +46,10 @@ jobs:
     uses: ./.github/workflows/build-test.yml
     with:
       environment: ${{ needs.orchestrate.outputs.environment }}
+  
+  call-deploy:
+    needs: call-build
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: ${{ needs.orchestrate.outputs.environment }}
 

@@ -9,13 +9,13 @@ on:
 
 jobs:
   deploy:
-    name: deploy: release
+    name: "deploy: release"
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     steps:
       - name: Deploy QA
         if: ${{ inputs.environment == 'dev' || inputs.environment == 'staging' }}
-        run: echo "Deploying to QA (env: ${{ inputs.environment }})"
+        run: echo "Deploying to ${{ inputs.environment }} ENV"
 
       - name: Deploy PROD
         if: ${{ inputs.environment == 'prod' }}
