@@ -15,9 +15,25 @@ jobs:
   orchestrate:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        
+      - name: Set Environment Based on Branch
+        id: set-env
+        run: |
+          BRANCH_NAME="${{ github.ref_name }}"
+          echo "Branch name: $BRANCH_NAME"
+          
+          if [[ $BRANCH_NAME == feature* ]]; then
+            ENVIRONMENT="dev"
+          elif [[ $BRANCH_NAME == qa* ]]; then
+            ENVIRONMENT="staging"
+          elif [[ $BRANCH_NAME == "main" ]]; then
+            ENVIRONMENT="prod"
+          else
+            ENVIRONMENT="dev"  # default fallback
+          fi
+          
+          echo "Resolved environment: $ENVIRONMENT"
+          echo "environment=$ENVIRONMENT" >> $GITHUB_OUTPUT
+
       - name: Log orchestrator start
         run: |
           echo "🎯 Orchestrator workflow started"
@@ -26,4 +42,6 @@ jobs:
   call-build:
     needs: orchestrate
     uses: ./.github/workflows/build-test.yml
+    with:
+      environment: ${{ needs.orchestrate.outputs.environment }}
 
