@@ -23,7 +23,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
-    if: ${{ github.repository != "xoxtomon/KY-pipeline-usage" }} # Denotes stop condition on workflows triggered by commons
+    if: ${{ github.repository != 'xoxtomon/KY-pipeline-usage' }} # Denotes stop condition on workflows triggered by commons
     steps:
       - name: TEST invokation
         run: |
