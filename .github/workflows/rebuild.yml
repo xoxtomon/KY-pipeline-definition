@@ -23,8 +23,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
-    if: ${{ github.repository != 'xoxtomon/KY-pipeline-usage' }} # Denotes stop condition on workflows triggered by commons
+    if: ${{ github.repository != 'xoxtomon/KY-pipeline-usage' && '1' == '2' }} # Denotes stop condition on workflows triggered by commons
     steps:
       - name: TEST invokation
         run: |
-          echo "Executed from other repo"
+          curl -L -X POST \
+            -H "Authorization: Bearer ${{ secrets.REPO_DISPATCH_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/xoxtomon/KY-pipeline-usage-2/dispatches \
+            --data '{"event_type":"on-demand-repo-trigger"}'
