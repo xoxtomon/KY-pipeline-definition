@@ -8,6 +8,10 @@ on:
         description: 'Target environment'
         required: true
         type: string
+      REPO_DISPATCH_TOKEN:
+        description: 'Token to trigger workflow'
+        required: true
+        type: string
   workflow_dispatch:  # Allows manual triggering
     inputs:
       environment:
@@ -18,6 +22,10 @@ on:
           - dev
           - staging
           - prod
+      REPO_DISPATCH_TOKEN:
+        description: 'Token to trigger workflow'
+        required: true
+        type: string
   
 jobs:
   build:
