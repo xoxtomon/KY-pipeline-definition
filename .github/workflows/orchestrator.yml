@@ -14,6 +14,8 @@ on:
 jobs:
   orchestrate:
     runs-on: ubuntu-latest
+    outputs:
+      environment: ${{ steps.set-env.outputs.environment }}
     steps:
       - name: Set Environment Based on Branch
         id: set-env
