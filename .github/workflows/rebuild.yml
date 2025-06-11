@@ -8,10 +8,7 @@ on:
         description: 'Target environment'
         required: true
         type: string
-    secrets:
-      REPO_DISPATCH_TOKEN:
-        description: 'Token to trigger workflow'
-        required: true
+    secrets: inherit
   workflow_dispatch:  # Allows manual triggering
     inputs:
       environment:
@@ -22,10 +19,7 @@ on:
           - dev
           - staging
           - prod
-    secrets:
-      REPO_DISPATCH_TOKEN:
-        description: 'Token to trigger workflow'
-        required: true
+    secrets: inherit
   
 jobs:
   build:
