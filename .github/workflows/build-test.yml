@@ -1,15 +1,21 @@
 name: Build and Test
 
 on:
-  workflow_call: # <-- makes it callable
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
 
 jobs:
-  build:
+  build-test:
+    name: build: test
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
     steps:
-      - name: BUILD
-        run: echo "build"
-      
-      - name: TEST
-        run: echo "test"
-        
+      - name: Step 1 - Build
+        run: echo "Building for ${{ inputs.environment }}"
+
+      - name: Step 2 - Test
+        run: echo "Running tests for ${{ inputs.environment }}"
+

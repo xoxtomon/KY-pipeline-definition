@@ -1,15 +1,22 @@
-# .github/workflows/deploy.yml
 name: Deploy
 
 on:
-  workflow_call: # <-- also makes it callable
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
 
 jobs:
   deploy:
+    name: deploy: release
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
     steps:
-      - name: DEPLOY ASSET
-        run: echo "deploy asset"
-      
-      - name: DEPLOY JAR
-        run: echo "deploy jar"
+      - name: Deploy QA
+        if: ${{ inputs.environment == 'dev' || inputs.environment == 'staging' }}
+        run: echo "Deploying to QA (env: ${{ inputs.environment }})"
+
+      - name: Deploy PROD
+        if: ${{ inputs.environment == 'prod' }}
+        run: echo "Deploying to Production"
