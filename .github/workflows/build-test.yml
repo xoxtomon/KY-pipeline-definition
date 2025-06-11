@@ -1,21 +1,16 @@
-name: Build and Test
+# .github/workflows/build-test.yml
+name: Build And Test Workflow
 
 on:
-  workflow_call:
-    inputs:
-      environment:
-        required: true
-        type: string
-
+  workflow_call:  # Allows this workflow to be called by other workflows
+  workflow_dispatch:  # Allows manual triggering
+  
 jobs:
-  build-test:
-    name: build: test
+  build:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
     steps:
-      - name: Step 1 - Build
-        run: echo "Building for ${{ inputs.environment }}"
-
-      - name: Step 2 - Test
-        run: echo "Running tests for ${{ inputs.environment }}"
-
+      - name: First Bash Step
+        run: echo "First step executed"
+          
+      - name: Second Bash Step
+        run: echo "Second step executed"

@@ -1,39 +1,29 @@
-name: Orchestrator Pipeline
+# .github/workflows/orchestrator.yml
+name: Orchestrator Workflow
 
 on:
   push:
-    branches:
+    branches: 
       - main
-      - qa/*
-      - feature/*
+      - feature/**
+      - qa
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:  # Allows manual triggering
 
 jobs:
-  set-env:
-    name: set: environment
+  orchestrate:
     runs-on: ubuntu-latest
-    outputs:
-      environment: ${{ steps.setenv.outputs.environment }}
     steps:
-      - id: setenv
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Log orchestrator start
         run: |
-          case "${GITHUB_REF#refs/heads/}" in
-            feature/*) echo "environment=dev" >> "$GITHUB_OUTPUT" ;;
-            qa/*) echo "environment=staging" >> "$GITHUB_OUTPUT" ;;
-            main) echo "environment=prod" >> "$GITHUB_OUTPUT" ;;
-            *) echo "environment=unknown" >> "$GITHUB_OUTPUT" ;;
-          esac
-
-  build-test:
-    name: build: test
-    needs: set-env
+          echo "🎯 Orchestrator workflow started"
+          echo "Triggering build workflow..."
+          
+  call-build:
+    needs: orchestrate
     uses: ./.github/workflows/build-test.yml
-    with:
-      environment: ${{ needs.set-env.outputs.environment }}
-
-  deploy:
-    name: deploy: release
-    needs: build-test
-    uses: ./.github/workflows/deploy.yml
-    with:
-      environment: ${{ needs.set-env.outputs.environment }}
 
