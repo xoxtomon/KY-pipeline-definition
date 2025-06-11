@@ -1,0 +1,30 @@
+# .github/workflows/rebuild.yml
+name: Rebuild Codebase Workflow
+
+on:
+  workflow_call:  # Allows this workflow to be called by other workflows
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        type: string
+  workflow_dispatch:  # Allows manual triggering
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    if: $GITHUB_REPOSITORY != "xoxtomon/KY-pipeline-usage"  # Denotes stop condition on workflows triggered by commons
+    steps:
+      - name: TEST invokation
+        run: |
+          echo "Executed from other repo"
