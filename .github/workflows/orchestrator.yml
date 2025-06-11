@@ -46,3 +46,4 @@ jobs:
     uses: ./.github/workflows/rebuild.yml
     with:
       environment: ${{ needs.orchestrate.outputs.environment }}
+    secrets: inherit
