@@ -13,7 +13,6 @@ on:
 jobs:
   orchestrate:
     runs-on: ubuntu-latest
-    branch_name: ${{ inputs.branch_name }}
     outputs:
       environment: ${{ steps.set-env.outputs.environment }}
     steps:
