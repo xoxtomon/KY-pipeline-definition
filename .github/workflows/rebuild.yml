@@ -12,7 +12,6 @@ on:
       REPO_DISPATCH_TOKEN:
         description: 'Token to trigger workflow'
         required: true
-        type: string
   workflow_dispatch:  # Allows manual triggering
     inputs:
       environment:
@@ -27,7 +26,6 @@ on:
       REPO_DISPATCH_TOKEN:
         description: 'Token to trigger workflow'
         required: true
-        type: string
   
 jobs:
   build:
