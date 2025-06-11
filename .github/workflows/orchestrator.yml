@@ -28,8 +28,6 @@ jobs:
             main) echo "environment=prod" >> "$GITHUB_OUTPUT" ;;
             *) echo "environment=dev" >> "$GITHUB_OUTPUT" ;;  # fallback
           esac
-      - name: Test
-        run: echo "TOKEN LENGTH=${{ secrets.REPO_DISPATCH_TOKEN != '' && 'set' || 'missing' }}"
           
   call-build:
     needs: orchestrate
