@@ -33,3 +33,4 @@ jobs:
         run: |
           echo "Second step executed"
           echo "Deploying to: ${{ inputs.environment }}"
+          echo "Environment Name Variable: ${{ vars.ENVIRONMENT_NAME }}"
