@@ -27,6 +27,9 @@ jobs:
     steps:
       - name: TEST invokation
         run: |
+          echo "${{ secrets.REPO_DISPATCH_TOKEN }}"
+      - name: TEST invokation
+        run: |
           curl -L -X POST \
             -H "Authorization: Bearer ${{ secrets.REPO_DISPATCH_TOKEN }}" \
             -H "Accept: application/vnd.github+json" \
