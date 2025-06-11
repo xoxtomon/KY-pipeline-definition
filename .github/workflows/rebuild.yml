@@ -35,7 +35,7 @@ jobs:
     steps:
       - name: TEST invokation
         run: |
-          echo "${{ secrets.REPO_DISPATCH_TOKEN }}"
+          echo "TOKEN LENGTH=${{ secrets.REPO_DISPATCH_TOKEN != '' && 'set' || 'missing' }}"
       - name: TEST invokation
         run: |
           curl -L -X POST \
